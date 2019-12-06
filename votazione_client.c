@@ -49,7 +49,7 @@ int main (int argc, char *argv[]){
 				gets(&input -> tipoOp);
 			}
 
-			ris = esprimi_voto_2(input, cl);
+			ris = esprimi_voto_1(input, cl);
 			
 			if (ris == NULL) {
 				clnt_perror(cl, host);
@@ -64,7 +64,7 @@ int main (int argc, char *argv[]){
 		//visualizza_classifica
 		else if (strcmp(azione, "C") == 0 ){
 			
-			classifica = visualizza_classifica_1(v, cl);
+			classifica = classifica_giudici_1(v, cl);
 			
 			//controllo che la classifica restituita non sia nulla
 			if (classifica == NULL) {
@@ -75,8 +75,8 @@ int main (int argc, char *argv[]){
 			printf("Classifica giudici:\n");
 			
 			for (i = 0; i < NUMGIUDICI; i++){
-				if(classifica -> classifica.punteggioTot > 0)
-					printf("%s con %d voti in totale\n", classifica -> classifica[i].nomeGiudice, classifica -> classifica[i].punteggioTot););
+				if(classifica -> giudici[i].punteggioTot > 0)
+					printf("%s con %d voti in totale\n", classifica -> giudici[i].nome, classifica -> giudici[i].punteggioTot);
 			}
 		} // if C
 		

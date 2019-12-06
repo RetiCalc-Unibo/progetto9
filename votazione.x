@@ -8,16 +8,17 @@
 const NUMGIUDICI=10;
 
 struct Input{
-    string nomeCandidato<128>
+    string nomeCandidato<128>;
     char tipoOp;
 };
 
 struct Giudice{
     string nome <128>;
+    int punteggioTot;
 };
 
 struct Output {
-    Giudice classifica [NUMGIUDICI];
+    Giudice giudici [NUMGIUDICI];
 };
 
 
