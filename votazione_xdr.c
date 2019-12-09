@@ -30,6 +30,38 @@ xdr_Giudice (XDR *xdrs, Giudice *objp)
 }
 
 bool_t
+xdr_Persona (XDR *xdrs, Persona *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->candidato, 128))
+		 return FALSE;
+	 if (!xdr_char (xdrs, &objp->giudice))
+		 return FALSE;
+	 if (!xdr_char (xdrs, &objp->categoria))
+		 return FALSE;
+	 if (!xdr_string (xdrs, &objp->nomeFile, 128))
+		 return FALSE;
+	 if (!xdr_char (xdrs, &objp->fase))
+		 return FALSE;
+	 if (!xdr_int (xdrs, &objp->voto))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_Tabella (XDR *xdrs, Tabella *objp)
+{
+	register int32_t *buf;
+
+	int i;
+	 if (!xdr_vector (xdrs, (char *)objp->persona, 10,
+		sizeof (Persona), (xdrproc_t) xdr_Persona))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
 xdr_Output (XDR *xdrs, Output *objp)
 {
 	register int32_t *buf;

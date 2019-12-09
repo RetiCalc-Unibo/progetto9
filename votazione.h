@@ -27,6 +27,21 @@ struct Giudice {
 };
 typedef struct Giudice Giudice;
 
+struct Persona {
+	char *candidato;
+	char giudice;
+	char categoria;
+	char *nomeFile;
+	char fase;
+	int voto;
+};
+typedef struct Persona Persona;
+
+struct Tabella {
+	Persona persona[10];
+};
+typedef struct Tabella Tabella;
+
 struct Output {
 	Giudice giudici[NUMGIUDICI];
 };
@@ -59,11 +74,15 @@ extern int votazione_1_freeresult ();
 #if defined(__STDC__) || defined(__cplusplus)
 extern  bool_t xdr_Input (XDR *, Input*);
 extern  bool_t xdr_Giudice (XDR *, Giudice*);
+extern  bool_t xdr_Persona (XDR *, Persona*);
+extern  bool_t xdr_Tabella (XDR *, Tabella*);
 extern  bool_t xdr_Output (XDR *, Output*);
 
 #else /* K&R C */
 extern bool_t xdr_Input ();
 extern bool_t xdr_Giudice ();
+extern bool_t xdr_Persona ();
+extern bool_t xdr_Tabella ();
 extern bool_t xdr_Output ();
 
 #endif /* K&R C */

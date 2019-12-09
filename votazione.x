@@ -17,6 +17,18 @@ struct Giudice{
     int punteggioTot;
 };
 
+struct Persona {
+	string candidato <128>;
+	char giudice;
+	char categoria;
+	string nomeFile <128>;
+	char fase;
+	int voto;
+};
+
+struct Tabella{
+	Persona persona[10];
+};
 
 struct Output {
     Giudice giudici [NUMGIUDICI];
