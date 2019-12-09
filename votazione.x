@@ -5,7 +5,7 @@
  *  +definizione metodi e tipi richiesti/restituiti.
  */
 
-const NUMGIUDICI=10;
+const NUMGIUDICI=5;
 
 struct Input{
     string nomeCandidato<128>;
@@ -16,6 +16,7 @@ struct Giudice{
     string nome <128>;
     int punteggioTot;
 };
+
 
 struct Output {
     Giudice giudici [NUMGIUDICI];

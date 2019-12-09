@@ -6,7 +6,7 @@
 #include <rpc/rpc.h>
 #include "votazione.h"
 
-#define NUMGIUDICI 10
+#define NUMGIUDICI 5
 
 int main (int argc, char *argv[]){
 	char *host;

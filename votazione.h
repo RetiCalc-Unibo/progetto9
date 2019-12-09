@@ -13,7 +13,7 @@
 extern "C" {
 #endif
 
-#define NUMGIUDICI 10
+#define NUMGIUDICI 5
 
 struct Input {
 	char *nomeCandidato;
