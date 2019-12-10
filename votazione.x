@@ -19,7 +19,7 @@ struct Giudice{
 
 struct Persona {
 	string candidato <128>;
-	char giudice;
+	string giudice <128>;
 	char categoria;
 	string nomeFile <128>;
 	char fase;

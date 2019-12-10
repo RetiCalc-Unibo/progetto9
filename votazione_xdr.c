@@ -36,7 +36,7 @@ xdr_Persona (XDR *xdrs, Persona *objp)
 
 	 if (!xdr_string (xdrs, &objp->candidato, 128))
 		 return FALSE;
-	 if (!xdr_char (xdrs, &objp->giudice))
+	 if (!xdr_string (xdrs, &objp->giudice, 128))
 		 return FALSE;
 	 if (!xdr_char (xdrs, &objp->categoria))
 		 return FALSE;

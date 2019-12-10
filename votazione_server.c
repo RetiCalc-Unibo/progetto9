@@ -29,7 +29,7 @@ void inizializza(){
 	output.giudici[0].nome = "Endri";
 	output.giudici[0].punteggioTot = 0;
 
-	output.giudici[1].nome = "Hiari";
+	output.giudici[1].nome = "Karina";
 	output.giudici[1].punteggioTot = 0;
 	
 	output.giudici[2].nome = "Ivan";
@@ -38,12 +38,12 @@ void inizializza(){
 	output.giudici[3].nome = "Daniel";
 	output.giudici[3].punteggioTot = 0;
 	
-	output.giudici[4].nome = "Karina";
+	output.giudici[4].nome = "Hiari";
 	output.giudici[4].punteggioTot = 0;
 	// Fine init giudici
 	
 	// Init struct tabella.persona
-	const char * name[9];
+	char * name[9];
 	name[0] = "Isabel";
 	name[1] = "Aurora";
 	name[2] = "Luca";
@@ -106,11 +106,11 @@ Output * classifica_giudici_1_svc(void *in, struct svc_req * rqstp){
 			maxG = output.giudici[i];
 		}
 
-	localOut->giudici[0] = maxG;
+	localOut->	giudici[0] = maxG;
 
 	while(index != NUMGIUDICI - 1){
 		for(i = 0; i < NUMGIUDICI; i++){
-			if(output.giudici[i].punteggioTot < max && output.giudici[i].punteggioTot > now){
+			if(output.giudici[i].punteggioTot < max && output.giudici[i].punteggioTot > now && now != max){
 				maxG = output.giudici[i];
 			}
 		}

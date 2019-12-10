@@ -29,7 +29,7 @@ typedef struct Giudice Giudice;
 
 struct Persona {
 	char *candidato;
-	char giudice;
+	char *giudice;
 	char categoria;
 	char *nomeFile;
 	char fase;
