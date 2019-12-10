@@ -14,7 +14,7 @@ int main (int argc, char *argv[]){
 	int *ris; //esito dell'operazione (sia per visualizza_classifica_1, che per esprimi_voto_2)
 	void * v; //puntatore a void, utile per invocare la procedura visualizza classifica
 	Output *classifica; //classifica dei giudici
-	Input *input; //input (nome partecipante e voti corrispondenti)
+	Input input; //input (nome partecipante e voti corrispondenti)
 	int  i;
 	char azione[2]; //scelta dell'azione
 
@@ -31,6 +31,8 @@ int main (int argc, char *argv[]){
 		exit(1);
 	}
 
+	input.nomeCandidato = (char*) malloc(128);
+
 	printf("Inserire:\nC) per visualizzare la classifica dei giudici\nV) per esprimere un voto\n^D per terminare: ");
 
 	while (gets(azione)){
@@ -38,18 +40,20 @@ int main (int argc, char *argv[]){
 		//V: esprimiVoto
 		if (strcmp(azione, "V") == 0){
 			printf("Inserisci il nome del partecipante \n");
-			gets(input -> nomeCandidato);
+			gets(&(input.nomeCandidato));
 			
 			printf("Aggiungi voto (A), sottrai voto (S): \n");
-			gets(&input -> tipoOp);
+			input.tipoOp = getchar();
+			getchar();
 
 			// Verifico il tipo di azione, e se non valida la richiedo
-			while ((strcmp(&input -> tipoOp, "A") != 0) && (strcmp(&input -> tipoOp, "S") != 0)){
+			while (input.tipoOp != 'A' && input.tipoOp != 'S') {
 				printf("Valore non valido! Aggiungi voto (A), sottrai voto (S):\n");
-				gets(&input -> tipoOp);
+				input.tipoOp = getchar();
+				getchar();
 			}
 
-			ris = esprimi_voto_1(input, cl);
+			ris = esprimi_voto_1(&input, cl);
 			
 			if (ris == NULL) {
 				clnt_perror(cl, host);
