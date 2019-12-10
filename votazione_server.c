@@ -8,16 +8,16 @@
 #include "votazione.h"
 
 #define NUMPART 10
-#define RAND_MAX 10
+//#define RAND_MAX 10
 
 static int inizializzato = 0;
+
 static Giudice giudice;
 static Output output;
 static Tabella tabella;
 
 // Definisco la tabella.persona dei dati sono internamente perché
 // non verrà utilizzata dal client
-
 
 void inizializza(){
 	int i, j;
@@ -26,39 +26,39 @@ void inizializza(){
 		return;
 
 	// Init struct giudici
-	output.giudici[0].nome = "Endri";
-	output.giudici[0].punteggioTot = 0;
-
-	output.giudici[1].nome = "Karina";
-	output.giudici[1].punteggioTot = 0;
-	
-	output.giudici[2].nome = "Ivan";
-	output.giudici[2].punteggioTot = 0;
-	
-	output.giudici[3].nome = "Daniel";
-	output.giudici[3].punteggioTot = 0;
-	
-	output.giudici[4].nome = "Hiari";
-	output.giudici[4].punteggioTot = 0;
+	for(i = 0; i < NUMGIUDICI; i++){
+		output.giudici[i].nome = (char*) malloc(128);
+	}
+	for(i = 0; i < NUMPART; i++){
+		tabella.persona[i].candidato = (char*) malloc(128);
+		tabella.persona[i].giudice = (char*) malloc(128);
+		tabella.persona[i].nomeFile = (char*) malloc(128);
+	}
+	output.giudici[0].nome = "Endri"; 	output.giudici[0].punteggioTot = 0;
+	output.giudici[1].nome = "Karina";	output.giudici[1].punteggioTot = 0;
+	output.giudici[2].nome = "Ivan";	output.giudici[2].punteggioTot = 0;
+	output.giudici[3].nome = "Daniel";	output.giudici[3].punteggioTot = 0;
+	output.giudici[4].nome = "Hiari";	output.giudici[4].punteggioTot = 0;
 	// Fine init giudici
 	
 	// Init struct tabella.persona
-	char * name[9];
+	char *name[9];
+	for(i = 0; i < 9; i++)
+		name[i] = (char*) malloc(128);
 	name[0] = "Isabel";
 	name[1] = "Aurora";
 	name[2] = "Luca";
 	name[3] = "Marco";
 	name[4] = "Piero";
 	name[5] = "Andrea";
-	name[6] = "Giuseppe";
+	name[6] = "John";
 	name[7] = "Lucia";
 	name[8] = "Elisa";
-	name[9] = "Francesca";
+	name[9] = "Franca";
 	for(i = 0; i < 10; i++){
 		tabella.persona[i].candidato = name[i];
 		tabella.persona[i].nomeFile = name[i];
-		strcat(tabella.persona[i].nomeFile, ".txt");
-		tabella.persona[i].voto = random();
+		tabella.persona[i].voto = random() % 20;
 	}
 	for(i = 0; i < 5; i++){
 		j = i * 2;
@@ -80,19 +80,20 @@ void inizializza(){
 	inizializzato = 1;
 
 	printf("Terminata inizializzazione del Server!\n");
-	printf("[Nome]\t\t[Giudice]\t\t[Cat]\t\t[Fase]\t\t[Punteggio]\n");
+	printf("[Nome]\t\t[Giudice]\t[Cat]\t\t[Fase]\t\t[Punteggio]\n");
 	for(i = 0; i < NUMPART; i++){
 		printf("%s\t\t%s\t\t%c\t\t%c\t\t%d\n", tabella.persona[i].candidato, tabella.persona[i].giudice, tabella.persona[i].categoria, tabella.persona[i].fase, tabella.persona[i].voto);
 	}
 }
 
 Output * classifica_giudici_1_svc(void *in, struct svc_req * rqstp){
+	inizializza();
+
 	int i, j;
 	int index = 0, max = 0, now = 0;
 	Giudice maxG;
-	Output *localOut;
+	static Output localOut;
 
-	inizializza();
 	printf("Ricevuta richiesta di stampa della classifica dei giudici.\n");
 	
 	for(i = 0; i < NUMGIUDICI; i++)
@@ -106,7 +107,7 @@ Output * classifica_giudici_1_svc(void *in, struct svc_req * rqstp){
 			maxG = output.giudici[i];
 		}
 
-	localOut->	giudici[0] = maxG;
+	localOut.giudici[0] = maxG;
 
 	while(index != NUMGIUDICI - 1){
 		for(i = 0; i < NUMGIUDICI; i++){
@@ -114,17 +115,18 @@ Output * classifica_giudici_1_svc(void *in, struct svc_req * rqstp){
 				maxG = output.giudici[i];
 			}
 		}
-		localOut->giudici[i + 1] = maxG;
+		localOut.giudici[i + 1] = maxG;
 		index++;
 	}
 
-	return localOut;
+	return (&localOut);
 }               
 
 int * esprimi_voto_1_svc(Input * input, struct svc_req * rqstp){
+	inizializza();
+
 	static int res = -1;
 	int i, found = 0;
-	inizializza();
 	printf("Ricevuta richiesta di votazione.\n");
 	for(i = 0; i < NUMPART && found != 0; i++){
 		if(strcmp(input->nomeCandidato, tabella.persona[i].candidato) == 0){
