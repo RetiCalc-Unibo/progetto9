@@ -8,8 +8,6 @@
 #include "votazione.h"
 
 #define NUMPART 10
-//#define RAND_MAX 10
-
 static int inizializzato = 0;
 
 static Giudice giudice;
@@ -42,9 +40,8 @@ void inizializza(){
 	// Fine init giudici
 	
 	// Init struct tabella.persona
-	char *name[9];
-	for(i = 0; i < 9; i++)
-		name[i] = (char*) malloc(128);
+	char * name[9];
+	for(i = 0; i < 9; i++) name[i] = (char*) malloc(128);
 	name[0] = "Isabel";
 	name[1] = "Aurora";
 	name[2] = "Luca";
@@ -78,9 +75,10 @@ void inizializza(){
 	// Fine init tabella.persona
 
 	inizializzato = 1;
-
+	printf("Init = %d\n", inizializzato);
 	printf("Terminata inizializzazione del Server!\n");
-	printf("[Nome]\t\t[Giudice]\t[Cat]\t\t[Fase]\t\t[Punteggio]\n");
+
+	printf("[Nome]\t\t[Giudice]\t[Cat]\t\t[Fase]\t\t[PT]\n");
 	for(i = 0; i < NUMPART; i++){
 		printf("%s\t\t%s\t\t%c\t\t%c\t\t%d\n", tabella.persona[i].candidato, tabella.persona[i].giudice, tabella.persona[i].categoria, tabella.persona[i].fase, tabella.persona[i].voto);
 	}
@@ -88,6 +86,8 @@ void inizializza(){
 
 Output * classifica_giudici_1_svc(void *in, struct svc_req * rqstp){
 	inizializza();
+
+	printf(".............");
 
 	int i, j;
 	int index = 0, max = 0, now = 0;
@@ -135,14 +135,14 @@ int * esprimi_voto_1_svc(Input * input, struct svc_req * rqstp){
 	}
 	if(found){
 		if(input->tipoOp == 'A'){
-			tabella.persona[found].voto += 1;
+			tabella.persona[found].voto++;
 			printf("Voto aggiunto!\n");
 		}
 		else{
-			tabella.persona[found].voto -= 1;
+			tabella.persona[found].voto--;
 			printf("Voto sottratto!\n");
 		}
-		res = 1;
+		res = tabella.persona[found].voto;
 	}
 	return(&res);
 
