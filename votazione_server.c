@@ -40,8 +40,8 @@ void inizializza(){
 	// Fine init giudici
 	
 	// Init struct tabella.persona
-	char * name[9];
-	for(i = 0; i < 9; i++) name[i] = (char*) malloc(128);
+	char * name[10];
+	for(i = 0; i < 10; i++) name[i] = (char*) malloc(128);
 	name[0] = "Isabel";
 	name[1] = "Aurora";
 	name[2] = "Luca";
@@ -79,16 +79,13 @@ void inizializza(){
 	printf("Terminata inizializzazione del Server!\n");
 
 	printf("[Nome]\t\t[Giudice]\t[Cat]\t\t[Fase]\t\t[PT]\n");
-	for(i = 0; i < NUMPART; i++){
+	for(i = 0; i < 9; i++){
 		printf("%s\t\t%s\t\t%c\t\t%c\t\t%d\n", tabella.persona[i].candidato, tabella.persona[i].giudice, tabella.persona[i].categoria, tabella.persona[i].fase, tabella.persona[i].voto);
 	}
 }
 
 Output * classifica_giudici_1_svc(void *in, struct svc_req * rqstp){
 	inizializza();
-
-	printf(".............");
-
 	int i, j;
 	int index = 0, max = 0, now = 0;
 	Giudice maxG;
@@ -139,8 +136,12 @@ int * esprimi_voto_1_svc(Input * input, struct svc_req * rqstp){
 			printf("Voto aggiunto!\n");
 		}
 		else{
-			tabella.persona[found].voto--;
-			printf("Voto sottratto!\n");
+			if(tabella.persona[found].voto > 0){
+				tabella.persona[found].voto--;
+				printf("Voto sottratto!\n");
+			} else {
+				printf("Voti: 0 - Voto Invariato!\n");
+			}
 		}
 		res = tabella.persona[found].voto;
 	}

@@ -9,7 +9,7 @@
 #define NUMGIUDICI 5
 
 int main (int argc, char *argv[]){
-	char *host;
+	char *host, ch;
 	CLIENT *cl;
 	int *ris; //esito dell'operazione (sia per visualizza_classifica_1, che per esprimi_voto_2)
 	void * v; //puntatore a void, utile per invocare la procedura visualizza classifica
@@ -41,17 +41,19 @@ int main (int argc, char *argv[]){
 		if (strcmp(azione, "V") == 0){
 			printf("Inserisci il nome del partecipante \n");
 			gets(&(input.nomeCandidato));
-			
-			printf("Aggiungi voto (A), sottrai voto (S): \n");
-			input.tipoOp = getchar();
-			getchar();
-
 			// Verifico il tipo di azione, e se non valida la richiedo
-			while (input.tipoOp != 'A' && input.tipoOp != 'S') {
-				printf("Valore non valido! Aggiungi voto (A), sottrai voto (S):\n");
-				input.tipoOp = getchar();
+			while (ch != 'A' && ch != 'S') {
+				printf("Aggiungi voto (A), sottrai voto (S):\n");
+				ch = getchar();
 				getchar();
+				if(ch == 'A')
+					input.tipoOp = 'A';
+				else if(ch == 'S')
+					input.tipoOp = 'S';
+				else
+					printf("Voto non valido, riprova!\n");
 			}
+
 
 			ris = esprimi_voto_1(&input, cl);
 			
