@@ -40,6 +40,16 @@ int main (int argc, char *argv[]){
 		//V: esprimiVoto
 		if (strcmp(azione, "V") == 0){
 			printf("Inserisci il nome del partecipante \n");
+<<<<<<< HEAD
+			scanf("%s", input.nomeCandidato);
+			getchar();
+			// Verifico il tipo di azione, e se non valida la richiedo
+			//while (ch != 'A' && ch != 'S') {
+				printf("Aggiungi voto (A), sottrai voto (S):\n");
+			//	ch = getchar();
+				input.tipoOp = getchar();
+			/*	if(ch == 'A')
+=======
 			gets(&(input.nomeCandidato));
 			// Verifico il tipo di azione, e se non valida la richiedo
 			while (ch != 'A' && ch != 'S') {
@@ -47,12 +57,14 @@ int main (int argc, char *argv[]){
 				ch = getchar();
 				getchar();
 				if(ch == 'A')
+>>>>>>> b0bcae2c2dd154c7e456551c669be8e150980531
 					input.tipoOp = 'A';
 				else if(ch == 'S')
 					input.tipoOp = 'S';
 				else
 					printf("Voto non valido, riprova!\n");
 			}
+*/
 
 
 			ris = esprimi_voto_1(&input, cl);
