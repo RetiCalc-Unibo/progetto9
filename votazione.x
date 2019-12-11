@@ -6,22 +6,24 @@
  */
 
 const NUMGIUDICI=5;
+const NUMPART=10;
+const MAXSTRINGLENGHT=128;
 
 struct Input{
-    string nomeCandidato<128>;
+    string nomeCandidato<MAXSTRINGLENGHT>;
     char tipoOp;
 };
 
 struct Giudice{
-    string nome <128>;
+    string nome <MAXSTRINGLENGHT>;
     int punteggioTot;
 };
 
 struct Persona {
-	string candidato <128>;
-	string giudice <128>;
+	string candidato <MAXSTRINGLENGHT>;
+	string giudice <MAXSTRINGLENGHT>;
 	char categoria;
-	string nomeFile <128>;
+	string nomeFile <MAXSTRINGLENGHT>;
 	char fase;
 	int voto;
 };

@@ -40,7 +40,6 @@ int main (int argc, char *argv[]){
 		//V: esprimiVoto
 		if (strcmp(azione, "V") == 0){
 			printf("Inserisci il nome del partecipante \n");
-<<<<<<< HEAD
 			scanf("%s", input.nomeCandidato);
 			getchar();
 			// Verifico il tipo di azione, e se non valida la richiedo
@@ -76,7 +75,8 @@ int main (int argc, char *argv[]){
 
 			if (*ris < 0){
 				printf("Errore nell'attribuzione del voto: partecipante non trovato\n");
-			} else printf("Votazione effettuata con successo\n");
+			} else 
+				printf("Votazione effettuata!\n\n");
 		} // if V
 
 		//visualizza_classifica
@@ -90,12 +90,13 @@ int main (int argc, char *argv[]){
 				exit(1);
 			}
 
-			printf("Classifica giudici:\n");
+			printf("Classifica giudici:\n\n");
 			
 			for (i = 0; i < NUMGIUDICI; i++){
-				if(classifica -> giudici[i].punteggioTot > 0)
-					printf("%s con %d voti in totale\n", classifica -> giudici[i].nome, classifica -> giudici[i].punteggioTot);
+				//if(classifica -> giudici[i].punteggioTot > 0)
+					printf("[%d]\t%s con %d voti in totale\n", (i + 1),classifica -> giudici[i].nome, classifica -> giudici[i].punteggioTot);
 			}
+			printf("\n");
 		} // if C
 		
 		else 
