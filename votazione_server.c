@@ -13,9 +13,6 @@ static Giudice giudice;
 static Output output;
 static Tabella tabella;
 
-// Definisco la tabella.persona dei dati sono internamente perché
-// non verrà utilizzata dal client
-
 void inizializza(){
 	int i, j;
 

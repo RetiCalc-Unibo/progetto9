@@ -1,12 +1,6 @@
-/* votazione_client.c
- *
- */
-
 #include <stdio.h>
 #include <rpc/rpc.h>
 #include "votazione.h"
-
-#define NUMGIUDICI 5
 
 int main (int argc, char *argv[]){
 	char *host, ch;
@@ -47,24 +41,6 @@ int main (int argc, char *argv[]){
 				printf("Aggiungi voto (A), sottrai voto (S):\n");
 			//	ch = getchar();
 				input.tipoOp = getchar();
-			/*	if(ch == 'A')
-=======
-			gets(&(input.nomeCandidato));
-			// Verifico il tipo di azione, e se non valida la richiedo
-			while (ch != 'A' && ch != 'S') {
-				printf("Aggiungi voto (A), sottrai voto (S):\n");
-				ch = getchar();
-				getchar();
-				if(ch == 'A')
->>>>>>> b0bcae2c2dd154c7e456551c669be8e150980531
-					input.tipoOp = 'A';
-				else if(ch == 'S')
-					input.tipoOp = 'S';
-				else
-					printf("Voto non valido, riprova!\n");
-			}
-*/
-
 
 			ris = esprimi_voto_1(&input, cl);
 			

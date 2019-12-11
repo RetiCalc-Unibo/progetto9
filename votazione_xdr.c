@@ -10,7 +10,7 @@ xdr_Input (XDR *xdrs, Input *objp)
 {
 	register int32_t *buf;
 
-	 if (!xdr_string (xdrs, &objp->nomeCandidato, 128))
+	 if (!xdr_string (xdrs, &objp->nomeCandidato, MAXSTRINGLENGHT))
 		 return FALSE;
 	 if (!xdr_char (xdrs, &objp->tipoOp))
 		 return FALSE;
@@ -22,7 +22,7 @@ xdr_Giudice (XDR *xdrs, Giudice *objp)
 {
 	register int32_t *buf;
 
-	 if (!xdr_string (xdrs, &objp->nome, 128))
+	 if (!xdr_string (xdrs, &objp->nome, MAXSTRINGLENGHT))
 		 return FALSE;
 	 if (!xdr_int (xdrs, &objp->punteggioTot))
 		 return FALSE;
@@ -34,13 +34,13 @@ xdr_Persona (XDR *xdrs, Persona *objp)
 {
 	register int32_t *buf;
 
-	 if (!xdr_string (xdrs, &objp->candidato, 128))
+	 if (!xdr_string (xdrs, &objp->candidato, MAXSTRINGLENGHT))
 		 return FALSE;
-	 if (!xdr_string (xdrs, &objp->giudice, 128))
+	 if (!xdr_string (xdrs, &objp->giudice, MAXSTRINGLENGHT))
 		 return FALSE;
 	 if (!xdr_char (xdrs, &objp->categoria))
 		 return FALSE;
-	 if (!xdr_string (xdrs, &objp->nomeFile, 128))
+	 if (!xdr_string (xdrs, &objp->nomeFile, MAXSTRINGLENGHT))
 		 return FALSE;
 	 if (!xdr_char (xdrs, &objp->fase))
 		 return FALSE;

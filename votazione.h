@@ -14,6 +14,8 @@ extern "C" {
 #endif
 
 #define NUMGIUDICI 5
+#define NUMPART 10
+#define MAXSTRINGLENGHT 128
 
 struct Input {
 	char *nomeCandidato;
