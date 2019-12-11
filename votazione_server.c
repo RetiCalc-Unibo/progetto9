@@ -8,10 +8,9 @@
 #include "votazione.h"
 
 #define NUMPART 10
-<<<<<<< HEAD
 #define MAXSTRINGLENGHT 128
-=======
->>>>>>> b0bcae2c2dd154c7e456551c669be8e150980531
+#define NUMGIUDICE 5
+
 static int inizializzato = 0;
 
 static Giudice giudice;
@@ -28,8 +27,7 @@ void inizializza(){
 		return;
 
 	// Init struct giudici
-	for(i = 0; i < NUMGIUDICI; i++){
-<<<<<<< HEAD
+	for(i = 0; i < NUMGIUDICE; i++){
 		output.giudici[i].nome = (char*) malloc(MAXSTRINGLENGHT);
 	}
 	// Malloc di tutte le stringhe
@@ -65,38 +63,6 @@ void inizializza(){
 	for(i = 0; i < NUMPART; i++){
 		strcpy(tabella.persona[i].candidato, name[i]);
 		strcpy(tabella.persona[i].nomeFile, name[i]);
-=======
-		output.giudici[i].nome = (char*) malloc(128);
-	}
-	for(i = 0; i < NUMPART; i++){
-		tabella.persona[i].candidato = (char*) malloc(128);
-		tabella.persona[i].giudice = (char*) malloc(128);
-		tabella.persona[i].nomeFile = (char*) malloc(128);
-	}
-	output.giudici[0].nome = "Endri"; 	output.giudici[0].punteggioTot = 0;
-	output.giudici[1].nome = "Karina";	output.giudici[1].punteggioTot = 0;
-	output.giudici[2].nome = "Ivan";	output.giudici[2].punteggioTot = 0;
-	output.giudici[3].nome = "Daniel";	output.giudici[3].punteggioTot = 0;
-	output.giudici[4].nome = "Hiari";	output.giudici[4].punteggioTot = 0;
-	// Fine init giudici
-	
-	// Init struct tabella.persona
-	char * name[10];
-	for(i = 0; i < 10; i++) name[i] = (char*) malloc(128);
-	name[0] = "Isabel";
-	name[1] = "Aurora";
-	name[2] = "Luca";
-	name[3] = "Marco";
-	name[4] = "Piero";
-	name[5] = "Andrea";
-	name[6] = "John";
-	name[7] = "Lucia";
-	name[8] = "Elisa";
-	name[9] = "Franca";
-	for(i = 0; i < 10; i++){
-		tabella.persona[i].candidato = name[i];
-		tabella.persona[i].nomeFile = name[i];
->>>>>>> b0bcae2c2dd154c7e456551c669be8e150980531
 		tabella.persona[i].voto = random() % 20;
 	}
 	// Assegno a ogni partecipante un giudice
@@ -137,12 +103,19 @@ Output * classifica_giudici_1_svc(void *in, struct svc_req * rqstp){
 
 	printf("Ricevuta richiesta di stampa della classifica dei giudici.\n");
 	
-	for(i = 0; i < NUMGIUDICI; i++)
-		for(j = 0; j < NUMPART; j++)
-			if(strcmp(output.giudici[i].nome, tabella.persona[j].giudice) == 0)
+	for(i = 0; i < NUMGIUDICE; i++){
+		for(j = 0; j < NUMPART; j++){
+			printf("Iterooooooo con j= %d, i= %d\n", j, i);
+			printf("Nome giudice: %s\n", output.giudici[i].nome);
+			printf("Nome partecipante: %s\t Nome giudice rispettivo:%s\n", tabella.persona[j].candidato, tabella.persona[j].giudice);
+			if(strcmp(output.giudici[i].nome, tabella.persona[j].giudice) == 0){
 				output.giudici[i].punteggioTot += tabella.persona[j].voto;
-
-	for(i = 0; i < NUMGIUDICI; i++)
+				printf("Aggiunti voti per il giudice %s, ora ha come totale %d punti\n",output.giudici[i].nome, output.giudici[i].punteggioTot);
+			}
+		}
+	}
+	printf("Ho aggiunto i voti per quel giudice");
+	for(i = 0; i < NUMGIUDICE; i++)
 		if(output.giudici[i].punteggioTot > max){
 			max = output.giudici[i].punteggioTot;
 			maxG = output.giudici[i];
@@ -150,8 +123,8 @@ Output * classifica_giudici_1_svc(void *in, struct svc_req * rqstp){
 
 	localOut.giudici[0] = maxG;
 
-	while(index != NUMGIUDICI - 1){
-		for(i = 0; i < NUMGIUDICI; i++){
+	while(index != NUMGIUDICE - 1){
+		for(i = 0; i < NUMGIUDICE; i++){
 			if(output.giudici[i].punteggioTot < max && output.giudici[i].punteggioTot > now && now != max){
 				maxG = output.giudici[i];
 			}
@@ -165,15 +138,9 @@ Output * classifica_giudici_1_svc(void *in, struct svc_req * rqstp){
 
 int * esprimi_voto_1_svc(Input * input, struct svc_req * rqstp){
 	inizializza();
-<<<<<<< HEAD
 	// Risultato dell'operazione di default a -1
 	static int res = -1;
 	int i, found = 0;		
-=======
-
-	static int res = -1;
-	int i, found = 0;
->>>>>>> b0bcae2c2dd154c7e456551c669be8e150980531
 	printf("Ricevuta richiesta di votazione.\n");
 	
 	for(i = 0; i < NUMPART && found == 0; i++){	
@@ -184,26 +151,15 @@ int * esprimi_voto_1_svc(Input * input, struct svc_req * rqstp){
 	if(found>0){
 		if(input->tipoOp == 'A'){
 			tabella.persona[found].voto++;
-<<<<<<< HEAD
 			printf("Voto aggiunto a %s, con un totale attuale di %d punti!\n", tabella.persona[found].candidato, tabella.persona[found].voto);
-=======
-			printf("Voto aggiunto!\n");
->>>>>>> b0bcae2c2dd154c7e456551c669be8e150980531
 		}
 		else{
 			if(tabella.persona[found].voto > 0){
 				tabella.persona[found].voto--;
-<<<<<<< HEAD
 				printf("Voto tolto a %s, con un totale attuale di %d punti.\n", tabella.persona[found].candidato, tabella.persona[found].voto);
 			} 
-=======
-				printf("Voto sottratto!\n");
-			} else {
-				printf("Voti: 0 - Voto Invariato!\n");
-			}
->>>>>>> b0bcae2c2dd154c7e456551c669be8e150980531
 		}
-		res = tabella.persona[found].voto;
+		res = 1;
 	}
 	return(&res);
 
