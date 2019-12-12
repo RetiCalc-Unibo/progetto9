@@ -37,11 +37,16 @@ int main (int argc, char *argv[]){
 			scanf("%s", input.nomeCandidato);
 			getchar();
 			// Verifico il tipo di azione, e se non valida la richiedo
-			//while (ch != 'A' && ch != 'S') {
+			do {
 				printf("Aggiungi voto (A), sottrai voto (S):\n");
-			//	ch = getchar();
-				input.tipoOp = getchar();
-
+				ch = getchar();
+				getchar();
+				if (ch == 'A' || ch == 'S'){
+					input.tipoOp = ch;
+				}
+		
+			} while (ch != 'A' && ch != 'S');
+			
 			ris = esprimi_voto_1(&input, cl);
 			
 			if (ris == NULL) {
